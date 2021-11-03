@@ -1,4 +1,4 @@
-const { Model } = require('objection');
+import { Model } from 'objection';
 import knex from '../config/database';
 
 Model.knex(knex);
@@ -9,4 +9,4 @@ class Item extends Model {
   }
 }
 
-module.exports = Item;
+export default Item;
