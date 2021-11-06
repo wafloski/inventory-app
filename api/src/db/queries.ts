@@ -1,6 +1,7 @@
-const Item = require('./models/Item');
+import Item from './models/Item'
+import { Request, Response } from 'express';
 
-export const getItems = async (_: any, response: any) => {
+export const getItems = async (_: unknown, response: Response) => {
   try {
     const items = await Item.query();
     response.status(200).send(items);
@@ -10,7 +11,7 @@ export const getItems = async (_: any, response: any) => {
   }
 };
 
-export const getItem = async (request: any, response: any) => {
+export const getItem = async (request: Request, response: Response) => {
   try {
     const item = await Item.query().findById(request.params.id);
     response.status(200).send(item);
@@ -20,7 +21,7 @@ export const getItem = async (request: any, response: any) => {
   }
 };
 
-export const createItem = async (request: any, response: any) => {
+export const createItem = async (request: Request, response: Response) => {
   try {
     const result = await Item.query().insert(request.body);
     response.status(201).send(result);
@@ -30,7 +31,7 @@ export const createItem = async (request: any, response: any) => {
   }
 };
 
-export const updateItem = async (request: any, response: any) => {
+export const updateItem = async (request: Request, response: Response) => {
   try {
     await Item.query().update(request.body).where('id', request.params.id);
     response.send(`Item with id: ${request.params.id} updated`);
@@ -40,7 +41,7 @@ export const updateItem = async (request: any, response: any) => {
   }
 };
 
-export const deleteItem = async (request: any, response: any) => {
+export const deleteItem = async (request: Request, response: Response) => {
   try {
     await Item.query().deleteById(request.params.id);
     response.send(`Item with id: ${request.params.id} removed`);
