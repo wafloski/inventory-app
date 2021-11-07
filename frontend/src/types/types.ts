@@ -1,6 +1,6 @@
 export enum Unit {
   WEIGHT = 'gram',
-  PIECE = 'pieces',
+  PIECES = 'pieces',
   PACKS = 'packs'
 }
 

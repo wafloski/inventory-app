@@ -1,11 +1,10 @@
 import styled from 'styled-components';
-import theme from '../../../assets/styles/theme';
 
 export const Wrapper = styled.li`
   display: flex;
   align-items: center;
   padding: 10px;
-  background-color: ${theme.colors.lightGrey};
+  background-color: ${({ theme }) => theme.colors.lightGrey};
   margin-bottom: 10px;
 `;
 

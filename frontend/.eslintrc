@@ -8,5 +8,9 @@
     "react-app",
     "plugin:react/recommended",
     "plugin:@typescript-eslint/recommended"
-  ]
+  ],
+  "rules": {
+    "no-empty-function": "off",
+    "@typescript-eslint/no-empty-function": "off"
+  }
 }
