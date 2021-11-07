@@ -9,7 +9,7 @@ export const Wrapper = styled.li`
 `;
 
 export const Name = styled.span`
-  width: 60%;
+  width: 55%;
   font-size: 20px;
   display: inline-block;
 `;
@@ -22,9 +22,14 @@ export const Amount = styled.span`
 `;
 
 export const Unit = styled.span`
-  width: 15%;
+  width: 10%;
   font-size: 14px;
   display: inline-block;
   font-weight: lighter;
-  text-align: right;
+`;
+
+export const Actions = styled.div`
+  width: 10%;
+  display: flex;
+  justify-content: center;
 `;

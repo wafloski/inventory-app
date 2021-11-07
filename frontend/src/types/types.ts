@@ -9,3 +9,8 @@ export interface Product {
   amount: string,
   unit: Unit
 }
+
+export enum ButtonTypes {
+  SUBMIT = 'submit',
+  DELETE = 'delete'
+}

@@ -1,15 +1,14 @@
-import styled from 'styled-components';
+import React, { FC } from 'react';
 
-const Button = styled.button`
-  margin: 15px 0;
-  padding: 7px 20px;
-  font-size: 18px;
-  background-color: ${({ theme }) => theme.colors.success};
-  border-radius: 5px;
-  border: none;
-  font-weight: bold;
-  color: ${({ theme }) => theme.colors.white};
-  cursor: pointer;
-`;
+import * as S from './Button.styles';
+import { ButtonTypes } from '../../../types/types';
+
+export interface ButtonProps extends React.HTMLProps<HTMLButtonElement> {
+  kind: ButtonTypes;
+  onClick?: () => void;
+}
+
+const Button: FC<ButtonProps> = ({ children, kind, onClick }) =>
+  <S.Button kind={kind} onClick={onClick}>{children}</S.Button>;
 
 export default Button;

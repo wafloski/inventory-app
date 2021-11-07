@@ -1,19 +1,24 @@
-import React, { useState, useContext, FC } from 'react';
+import React, { FC, useContext, useState } from 'react';
 
 import { ProductsContext } from 'providers/ProductsProvider';
 
 import Title from 'components/atoms/Title/Title';
-import Button from '../../atoms/Button/Button';
+import Button from 'components/atoms/Button/Button';
 import ViewWrapper from 'components/molecules/ViewWrapper/ViewWrapper';
 import FormField from 'components/molecules/FormField/FormField';
 
 import * as S from './AddProductForm.styles';
-import { Product, Unit } from '../../../types/types';
+import { ButtonTypes, Product, Unit } from 'types/types';
 
 const initialFormState: Product = {
   name: '',
-  amount: '0',
+  amount: '',
   unit: Unit.PIECES
+};
+
+const texts: Record<string, string> = {
+  title: 'Add new product',
+  add: 'Add product'
 };
 
 const AddProductForm: FC = () => {
@@ -36,11 +41,11 @@ const AddProductForm: FC = () => {
   return (
     <ViewWrapper>
       <S.Form onSubmit={handleSubmitUser}>
-        <Title>Add new product</Title>
+        <Title>{texts.title}</Title>
         <FormField label='Name' id='name' name='name' value={formValues.name} type='text' onChange={handleFieldChange} />
-        <FormField label='Amount' id='amount' name='amount' value={formValues.amount} type='text' onChange={handleFieldChange} />
+        <FormField label='Amount' id='amount' name='amount' value={formValues.amount} type='number' onChange={handleFieldChange} />
         <FormField label='Unit' id='unit' name='unit' value={formValues.unit} type='select' onChange={handleFieldChange} />
-        <Button type='submit'>Add</Button>
+        <Button type='submit' disabled={!formValues.name} kind={ButtonTypes.SUBMIT}>{texts.add}</Button>
       </S.Form>
     </ViewWrapper>
   );

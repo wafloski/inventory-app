@@ -1,10 +1,10 @@
 import React, { FC } from 'react';
 
-import * as S from './FormField.styles';
-
 import Label from 'components/atoms/Label/Label';
 import Input from 'components/atoms/Input/Input';
 import Selector from 'components/atoms/Selector/Selector';
+
+import * as S from './FormField.styles';
 
 import { renderUnitsSelectorOptions } from 'helpers/helpers';
 
