@@ -22,7 +22,7 @@ const FormField: FC<FormFieldProps> = ({ onChange, value, label, name, id, type 
     <Label htmlFor={id}>{label}</Label>
     {type === 'select'
       ? <Selector name={name} onChange={onChange}>{renderUnitsSelectorOptions()}</Selector>
-      : <Input name={name} id={id} type={type} value={value} onChange={onChange} />
+      : <Input name={name} id={id} type={type} value={value} onChange={onChange} data-testid={label}/>
     }
   </S.Wrapper>
 );

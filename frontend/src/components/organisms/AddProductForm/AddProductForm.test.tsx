@@ -1,23 +1,21 @@
-import React, { useState } from 'react';
-import { render, screen } from '@testing-library/react';
+import React from 'react';
 
-const InputWithButton = () => {
-  const [inputValue, setInputValue] = useState('');
+import AddProductForm from './AddProductForm';
+import { renderWithProviders } from 'helpers/testHelpers';
+import { screen, fireEvent } from '@testing-library/react';
+import Dashboard from '../../../views/Dashboard';
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => setInputValue(e.target.value);
-
-  return (
-    <>
-      <input value={inputValue} name='Name' onChange={handleInputChange} />
-      <button disabled={!inputValue}>Add Product</button>
-    </>
-  );
-};
-
-describe('Add Product Form', () => {
-  test('Button disabled when name input is empty', () => {
-    render(<InputWithButton />);
-    const button = screen.getByText('Add Product');
-    expect(button).toBeDisabled();
-  })
-});
+describe('Add User Form', () => {
+  test('Render the component', () => {
+    renderWithProviders(
+      <>
+        <AddProductForm />
+        <Dashboard />
+      </>
+    );
+    fireEvent.change(screen.getByTestId('Name'), { target: { value: 'Test Tomato' }});
+    fireEvent.change(screen.getByTestId('Amount'), { target: { value: '10' }});
+    fireEvent.click(screen.getByText('Add product'));
+    screen.getByText('Test Tomato');
+  });
+})
