@@ -1,4 +1,4 @@
-import React, { FC, useContext, useState, useReducer } from 'react';
+import React, { FC, useContext, useReducer } from 'react';
 
 import { ProductsContext } from 'providers/ProductsProvider';
 
@@ -16,13 +16,20 @@ const initialFormState: Product = {
   unit: Unit.PIECES
 };
 
-const reducer = (state: any, action: any) => {
+enum FORM_ACTIONS {
+  CHANGE = 'INPUT CHANGE',
+  CLEAR = 'CLEAR VALUES'
+}
+
+const reducer = (state: Product, action: any) => {
   switch (action.type) {
-    case 'INPUT CHANGE':
+    case FORM_ACTIONS.CHANGE:
       return {
         ...state,
         [action.field]: action.value
       }
+    case FORM_ACTIONS.CLEAR:
+      return initialFormState;
     default:
       return state;
   }
@@ -34,15 +41,12 @@ const texts: Record<string, string> = {
 };
 
 const AddProductForm: FC = () => {
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  // @ts-ignore
   const [formValues, dispatch] = useReducer(reducer, initialFormState);
-  // const [formValues, setFormValues] = useState<Product>(initialFormState);
   const { addProduct } = useContext(ProductsContext);
 
   const handleFieldChange = (e: React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLSelectElement>) => {
     dispatch({
-      type: 'INPUT CHANGE',
+      type: FORM_ACTIONS.CHANGE,
       field: e.target.name,
       value: e.target.value
     });
@@ -51,7 +55,7 @@ const AddProductForm: FC = () => {
   const handleSubmitUser = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     addProduct(formValues);
-    // setFormValues(initialFormState);
+    dispatch({ type: FORM_ACTIONS.CLEAR });
   };
 
   return (
