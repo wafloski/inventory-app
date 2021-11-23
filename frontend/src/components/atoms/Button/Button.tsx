@@ -4,7 +4,7 @@ import * as S from './Button.styles';
 import { ButtonTypes } from 'types/types';
 
 export interface ButtonProps extends React.HTMLProps<HTMLButtonElement> {
-  kind: ButtonTypes;
+  kind?: ButtonTypes;
   onClick?: () => void;
 }
 

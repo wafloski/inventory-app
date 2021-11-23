@@ -1,4 +1,4 @@
-import React, { FC, useContext, useState } from 'react';
+import React, { FC, useContext, useState, useReducer } from 'react';
 
 import { ProductsContext } from 'providers/ProductsProvider';
 
@@ -16,26 +16,42 @@ const initialFormState: Product = {
   unit: Unit.PIECES
 };
 
+const reducer = (state: any, action: any) => {
+  switch (action.type) {
+    case 'INPUT CHANGE':
+      return {
+        ...state,
+        [action.field]: action.value
+      }
+    default:
+      return state;
+  }
+};
+
 const texts: Record<string, string> = {
   title: 'Add new product',
   add: 'Add product'
 };
 
 const AddProductForm: FC = () => {
-  const [formValues, setFormValues] = useState<Product>(initialFormState);
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-ignore
+  const [formValues, dispatch] = useReducer(reducer, initialFormState);
+  // const [formValues, setFormValues] = useState<Product>(initialFormState);
   const { addProduct } = useContext(ProductsContext);
 
   const handleFieldChange = (e: React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLSelectElement>) => {
-    setFormValues({
-      ...formValues,
-      [e.target.name]: e.target.value
+    dispatch({
+      type: 'INPUT CHANGE',
+      field: e.target.name,
+      value: e.target.value
     });
   };
 
   const handleSubmitUser = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     addProduct(formValues);
-    setFormValues(initialFormState);
+    // setFormValues(initialFormState);
   };
 
   return (
