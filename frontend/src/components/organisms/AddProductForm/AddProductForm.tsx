@@ -16,17 +16,23 @@ const initialFormState: Product = {
   unit: Unit.PIECES
 };
 
+type Action = {
+  type: string,
+  field?: string,
+  value?: string
+}
+
 enum FORM_ACTIONS {
   CHANGE = 'INPUT CHANGE',
   CLEAR = 'CLEAR VALUES'
 }
 
-const reducer = (state: Product, action: any) => {
+const formReducer = (state: Product, action: Action) => {
   switch (action.type) {
     case FORM_ACTIONS.CHANGE:
       return {
         ...state,
-        [action.field]: action.value
+        [action.field as string]: action.value
       }
     case FORM_ACTIONS.CLEAR:
       return initialFormState;
@@ -41,7 +47,7 @@ const texts: Record<string, string> = {
 };
 
 const AddProductForm: FC = () => {
-  const [formValues, dispatch] = useReducer(reducer, initialFormState);
+  const [formValues, dispatch] = useReducer(formReducer, initialFormState);
   const { addProduct } = useContext(ProductsContext);
 
   const handleFieldChange = (e: React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLSelectElement>) => {
